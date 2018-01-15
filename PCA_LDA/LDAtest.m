@@ -1,7 +1,7 @@
 %利用LDA和KNN进行人脸识别
 clear;
 clc;
-load('ORL.mat');
+load('ORL_32_32.mat');
 X=alls';
 Labels=gnd;
 %所有样本一共40类
@@ -48,7 +48,6 @@ vs=vs(:,index);
 w=vs(:,1:presdim);%LDA投影矩阵，LDA基矩阵
 Y=w'*X';
 Y=Y';
-
 
 %由于不需要训练，则将全部集合当成测试集
 res=zeros(1,200);
