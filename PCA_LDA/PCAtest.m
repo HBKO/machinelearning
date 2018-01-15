@@ -13,13 +13,13 @@ Cov=cov(Xhat);
 [PC,variances,explained]=pcacov(Cov);
 
 [lambda,index]=sort(variances,'descend');%对特征根进行降序排序
-presdim=20;%想保留的维度
+presdim=50;%想保留的维度
 PC=PC(:,index);%根据特征根大小对特征向量排序
 W=PC(:,1:presdim);%选择前m个最大特征对应的特征向量组成投影向量
 Y=W'*X';
 Y=Y';
 
-%由于不需要训练，则将全部集合当成测试集
+%由于不需要训练，则将全部集合当成测试集,将
 res=zeros(1,400);
 distance=zeros(1,400);
 for i=1:400

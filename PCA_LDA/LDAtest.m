@@ -1,7 +1,7 @@
 %利用LDA和KNN进行人脸识别
 clear;
 clc;
-load('ORL_32_32.mat');
+load('ORL.mat');
 X=alls';
 Labels=gnd;
 %所有样本一共40类
@@ -20,7 +20,7 @@ for i=1:40
     bar(i,:)=mean(tmpMatrix);
 end
 %计算每一个类的散度矩阵
-%类内散度矩阵
+%类间散度矩阵
 SW=zeros(1024,1024);
 for i=1:40
     tmpMatrix=Data{1,i};
@@ -37,7 +37,7 @@ for i=1:40
 end
 
 %计算特征值
-[vs,lam]=eig(SW,Sb);%fisher criterion,minimize Sw/Sb,特征值分解
+[vs,lam]=eig(Sb,SW);%fisher criterion,minimize Sb/SW,特征值分解
 lam=diag(lam);%去除小于等于零的特征值对应的特征向量，属于退化解
 ind=find(lam<=0);
 lam(ind)=[];
@@ -51,8 +51,8 @@ Y=Y';
 
 
 %由于不需要训练，则将全部集合当成测试集
-res=zeros(1,400);
-distance=zeros(1,400);
+res=zeros(1,200);
+distance=zeros(1,200);
 for i=1:400
     for j=1:400
         distance(1,j)=norm(Y(i,:)-Y(j,:));
